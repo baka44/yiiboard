@@ -17,7 +17,7 @@ $config = [
       //RBAC
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
-            'defaultRoles' => ['admin', 'user'],
+            'defaultRoles' => ['guest'],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

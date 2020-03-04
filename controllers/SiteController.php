@@ -21,25 +21,7 @@ class SiteController extends Controller
      */
     public function behaviors()
     {
-        return [
-          //  'access' => [
-          //      'class' => AccessControl::className(),
-          //      'only' => ['logout'],
-          //      'rules' => [
-          //          [
-          //              'actions' => ['logout'],
-          //              'allow' => true,
-          //              'roles' => ['@'],
-          //          ],
-          //      ],
-          //  ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
+      return [];
     }
     public function beforeAction($action) {
       if (parent::beforeAction($action)) {
@@ -90,6 +72,9 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            $auth = Yii::$app->authManager;
+            $role = $auth->createRole(Yii::$app->user->identity->role);
+            Yii::$app->authManager->assign($role, Yii::$app->user->id);
             return $this->goBack();
         }
 

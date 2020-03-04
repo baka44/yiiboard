@@ -36,16 +36,18 @@ return [
     'about' => [
         'type' => 2,
     ],
+    'contact' => [
+        'type' => 2,
+    ],
     'guest' => [
         'type' => 1,
         'ruleName' => 'userRole',
         'children' => [
+            'index',
             'login',
             'logout',
             'error',
             'signup',
-            'index',
-            'view',
         ],
     ],
     'user' => [
@@ -55,7 +57,6 @@ return [
             'create',
             'update',
             'profile',
-            'guest',
         ],
     ],
     'admin' => [

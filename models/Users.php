@@ -10,7 +10,7 @@ class Users extends ActiveRecord implements IdentityInterface {
     //public $username;
     //public $password;
     public $auth_key;
-    //public $token;
+    public $token;
 
     public static function tableName(){
        return 'users';
