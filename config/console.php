@@ -14,6 +14,11 @@ $config = [
         '@tests' => '@app/tests',
     ],
     'components' => [
+      //RBAC
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+            'defaultRoles' => ['admin', 'user'],
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

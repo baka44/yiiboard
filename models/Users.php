@@ -1,33 +1,43 @@
 <?php
 
 namespace app\models;
+use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
-class Users extends ActiveRecord implements IdentityInterface{
-    public $id;
-    public $username;
-    public $password;
+class Users extends ActiveRecord implements IdentityInterface {
+    //public $id;
+    //public $username;
+    //public $password;
+    public $auth_key;
+    //public $token;
 
-    public static function findIdentityByAccessToken() {
+    public static function tableName(){
+       return 'users';
+   }
+
+    public static function findIdentityByAccessToken($token, $type = null) {
+        return static::findOne(['access_token' => $token]);
     }
+
     public function getAuthKey() {
-      return $this->auth_key;
+       return $this->auth_key;
+
     }
     public function validateAuthKey($authKey) {
-      return $this->getAuthKey() === $authKey;
+       return $this->getAuthKey() === $authKey;
     }
 
     public static function findIdentity($id) {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return self::findOne(array('id'=>$id));
+        //return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
     }
 
     public static function findByUsername($username) {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
+        $userdata = Users::findOne(['username' => $username]);
+            if (isset($userdata)) {
+                return new static($userdata);
             }
-        }
 
         return null;
     }
@@ -40,11 +50,10 @@ class Users extends ActiveRecord implements IdentityInterface{
         return $this->password === $password;
     }
 
-    public function beforeSave($insert)
-    {
+    public function beforeSave($insert) {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->auth_key = \Yii::$app->security->generateRandomString();
+                $this->auth_key = Yii::$app->security->generateRandomString();
             }
             return true;
         }

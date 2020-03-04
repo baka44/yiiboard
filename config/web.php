@@ -12,6 +12,11 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+      //RBAC
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+            'defaultRoles' => ['admin', 'user'],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'IU0Aza9aFM4HmE4yInCzwNNwQBYknM8c',
@@ -22,6 +27,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\Users',
             'enableAutoLogin' => true,
+            //'enableSession' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
