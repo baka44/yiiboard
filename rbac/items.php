@@ -48,6 +48,7 @@ return [
             'logout',
             'error',
             'signup',
+            'view',
         ],
     ],
     'user' => [
