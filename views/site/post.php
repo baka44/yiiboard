@@ -11,8 +11,8 @@ $this->params['breadcrumbs'][] = $result['post']['subject'];
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
-      <div class="col-md-2">
-        <b><?= Users::findIdentity($result['post']['user_id'])->username ?></b>
+      <div class="col-md-2 text-center">
+        <b class="text-center"><?= Users::findIdentity($result['post']['user_id'])->username ?></b>
       </div>
       <div class="col-md-9">
         <span>Posted: <?= $result['post']['post_time'] ?></span>
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $result['post']['subject'];
   <div class="panel panel-default">
     <div class="panel-heading">
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 text-center">
           <b><?= Users::findIdentity($reply['user_id'])->username ?></b>
         </div>
         <div class="col-md-9">
