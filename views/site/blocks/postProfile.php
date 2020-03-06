@@ -10,7 +10,7 @@ use app\models\Posts;
 }
 </style>
 <div class="col-md-12">
-<img src="https://vyshnevyi-partners.com/wp-content/uploads/2016/12/no-avatar.png" class="user-avatar img-responsive">
+<img src="/img/default/no-avatar.png" class="user-avatar img-responsive">
 <br>
 <p class="text-center">Group: <?= Users::findIdentity($userId)->role ?></p>
 <p class="text-center"><?= Posts::find()->where(['user_id' => $userId ])->count() ?> posts</p>
