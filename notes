@@ -19,7 +19,7 @@ CREATE TABLE `posts` (
   `post_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `subject_id` int(11) NOT NULL,
-  `subject` char(120) NOT NULL,
+  `subject` char(120),
   `body` text,
   `reply_to_post_id` int(11),
   `is_pinned` tinyint(1) NOT NULL default 0,
