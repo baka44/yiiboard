@@ -29,3 +29,13 @@ CREATE TABLE `posts` (
   FOREIGN KEY (`subject_id`) REFERENCES `subjects`(`id`),
   FOREIGN KEY (`reply_to_post_id`) REFERENCES `posts`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE my_table
+(
+id serial,
+attribute boolean,
+number integer,
+CONSTRAINT if_attribute_then_number_is_not_null
+   CHECK ( (NOT attribute) OR (number IS NOT NULL) )
+) ;

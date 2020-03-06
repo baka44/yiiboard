@@ -70,7 +70,7 @@ class SiteController extends Controller {
       $result["$category->name"]['id'] = $category->id;
       $subjects = Subjects::find()->where(['category_id' => $category->id])->all();
       foreach ($subjects as $subject){
-        $posts = Posts::find()->where(['subject_id' => $subject->id])->count();
+        $posts = Posts::find()->where(['subject_id' => $subject->id, 'reply_to_post_id' => NULL])->count();
         $result["$category->name"]['content']["$subject->name"]['count'] = $posts;
         $result["$category->name"]['content']["$subject->name"]['id'] = $subject->id;
       }
@@ -130,44 +130,63 @@ class SiteController extends Controller {
     return $this->render('profile', ['model' => $model->renderData()]);
   }
 
-  //View category/subject/post
-  public function actionView($category = 0, $subject = 0, $post = 0) {
-      if (!$category && !$subject && !$post){
-        return $this->redirect(['site/index']);
+  //View category
+  public function actionCategory($categoryId=1) {
+    $result = [];
+      $category = Categories::find()->where(['id' => $categoryId])->one();
+      if (!$category){
+        throw new \yii\web\NotFoundHttpException('Not found, obliviously');
       }
-        $result = [];
-        if ($category){
-          $cat = Categories::find()->where(['id' => $category])->one();
-          if (!$cat){
-            throw new \yii\web\NotFoundHttpException('Not found, obliviously');
-          }
-          $result["$cat->name"]['id'] = $cat->id;
-          $subjects = Subjects::find()->where(['category_id' => $cat->id])->all();
-          foreach ($subjects as $subject){
-            $posts = Posts::find()->where(['subject_id' => $subject->id])->count();
-            $result["$cat->name"]['content']["$subject->name"]['count'] = $posts;
-            $result["$cat->name"]['content']["$subject->name"]['id'] = $subject->id;
-          }
-          return $this->render('view', ['result' => $result, 'type' => 'category']);
-        }elseif($subject){
-          $sub = Subjects::find()->where(['id' => $subject])->one();
-          if (!$sub){
-            throw new \yii\web\NotFoundHttpException('Not found, obliviously');
-          }
-          $cat = Categories::find()->where(['id' => $sub->category_id])->one();
-          $result["$cat->name"]['id'] = $cat->id;
-          $posts = Posts::find()->where(['subject_id' => $sub->id])->all();
-          foreach ($posts as $post){
-            $posts = Posts::find()->where(['subject_id' => $sub->id])->count();
-            $result["$cat->name"]['content']["$sub->name"]['post'][$post->id] = $post;
-            $result["$cat->name"]['content']["$sub->name"]['id'] = $sub->id;
-            $result["$cat->name"]['content']["$sub->name"]['count'] = 0;
-          }
-          return $this->render('view', ['result' => $result, 'type' => 'subject']);
-        }elseif($post){
-
-        }
-
-      //return $this->render('about');
+      $result["$category->name"]['id'] = $category->id;
+      $subjects = Subjects::find()->where(['category_id' => $category->id])->all();
+      foreach ($subjects as $subject){
+        //Count only new subjects, skip replies
+        $posts = Posts::find()->where(['subject_id' => $subject->id, 'reply_to_post_id' => NULL])->count();
+        $result["$category->name"]['content']["$subject->name"]['count'] = $posts;
+        $result["$category->name"]['content']["$subject->name"]['id'] = $subject->id;
+      }
+      return $this->render('category', ['result' => $result]);
+  }
+  //View Subjects threads
+  public function actionSubject($subjectId = 1) {
+    $result = [];
+    $subject = Subjects::find()->where(['id' => $subjectId])->one();
+    if (!$subject){
+      throw new \yii\web\NotFoundHttpException('Not found, obliviously');
     }
+    //Define subjects category
+    $category = Categories::find()->where(['id' => $subject->category_id])->one();
+    $result["$subject->name"]['category']['id'] = $category->id;
+    $result["$subject->name"]['category']['name'] = $category->name;
+    //Get all posts, skip replies
+    $posts = Posts::find()->where(['subject_id' => $subject->id, 'reply_to_post_id' => NULL])->all();
+    foreach ($posts as $post){
+      $result["$subject->name"]['post'][$post->id] = $post;
+      $result["$subject->name"]['id'] = $subject->id;
+    }
+    return $this->render('subject', ['result' => $result]);
+  }
+
+  //View Post
+  public function actionPost($postId = 1) {
+    $result = [];
+    $post = Posts::find()->where(['id' => $postId])->one();
+    if (!$post){
+      throw new \yii\web\NotFoundHttpException('Not found, obliviously');
+    }
+    //Define post subject, category
+    $subject = Subjects::find()->where(['id' => $post->subject_id])->one();
+    $category = Categories::find()->where(['id' => $subject->category_id])->one();
+    $result['post'] = $post;
+    $result['subject'] = $subject;
+    $result['category'] = $category;
+    //Get all replies
+    $replies = Posts::find()->where(['reply_to_post_id' => $postId])->all();
+    foreach ($replies as $reply){
+      $result['reply'][$reply->id] = $reply;
+    }
+    //echo "</pre>"; print_r($result); die;
+    return $this->render('post', ['result' => $result]);
+  }
+
 }

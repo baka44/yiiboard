@@ -39,6 +39,15 @@ return [
     'contact' => [
         'type' => 2,
     ],
+    'category' => [
+        'type' => 2,
+    ],
+    'subject' => [
+        'type' => 2,
+    ],
+    'post' => [
+        'type' => 2,
+    ],
     'guest' => [
         'type' => 1,
         'ruleName' => 'userRole',
@@ -48,7 +57,9 @@ return [
             'logout',
             'error',
             'signup',
-            'view',
+            'category',
+            'subject',
+            'post',
         ],
     ],
     'user' => [

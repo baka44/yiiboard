@@ -8,7 +8,7 @@ $this->title = 'Yiiboard index';
   <div class="body-content">
     <?php foreach ($result as $key => $value): ?>
       <div class="panel panel-default">
-        <div class="panel-heading"><a href="<?= Url::base(true) ."/index.php?r=site/view&category=". $result[$key]['id']?>"><?= Html::Encode($key)?></a></div>
+        <div class="panel-heading"><a href="<?= Url::base(true) ."/index.php?r=site/category&categoryId=". $result[$key]['id']?>"><?= Html::Encode($key)?></a></div>
         <div class="panel-body">
           <div class="row">
             <div class="col-md-6">
@@ -23,7 +23,7 @@ $this->title = 'Yiiboard index';
             <div class="col-md-12"><hr></div>
           <?php foreach ($result[$key]['content'] as $k => $v): ?>
               <div class="col-md-6">
-                <span class="glyphicon glyphicon-comment"></span> <a href="<?= Url::base(true) ."/index.php?r=site/view&subject=". $result[$key]['content'][$k]['id']?>"><?= Html::Encode($k)?></a>
+                <span class="glyphicon glyphicon-comment"></span> <a href="<?= Url::base(true) ."/index.php?r=site/subject&subjectId=". $result[$key]['content'][$k]['id']?>"><?= Html::Encode($k)?></a>
               </div>
               <div class="col-md-2">
                 <?= Html::Encode($result[$key]['content'][$k]['count'])?>
