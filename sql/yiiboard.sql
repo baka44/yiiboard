@@ -66,7 +66,7 @@ CREATE TABLE `posts` (
   CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`),
   CONSTRAINT `posts_ibfk_3` FOREIGN KEY (`reply_to_post_id`) REFERENCES `posts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +75,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,1,'2020-03-05 11:05:16','2020-03-05 11:05:16',1,'Wellcome to yiiboard','Wellcome to yiiboard, simple forum boards based on yii2 php web-framework.',NULL,0,0);
+INSERT INTO `posts` VALUES (1,1,'2020-03-05 11:05:16','2020-03-05 11:05:16',1,'Wellcome to yiiboard','Wellcome to yiiboard, simple forum boards based on yii2 php web-framework.',NULL,0,0),(2,1,'2020-03-06 00:25:00','2020-03-06 00:25:00',1,'null','test reply',1,0,0),(3,1,'2020-03-06 00:25:36','2020-03-06 00:25:36',3,'Test Subject','test post',NULL,0,0),(4,2,'2020-03-06 00:38:32','2020-03-06 00:38:32',1,'null','test reply',1,0,0);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,4 +143,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-05 17:22:13
+-- Dump completed on 2020-03-06  2:47:29
