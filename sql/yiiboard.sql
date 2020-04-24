@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 -- MySQL dump 10.13  Distrib 5.7.29, for Linux (x86_64)
 --
 -- Host: localhost    Database: yiiboard
 -- ------------------------------------------------------
 -- Server version	5.7.29-0ubuntu0.18.04.1
+=======
+-- MySQL dump 10.13  Distrib 5.7.28, for Linux (x86_64)
+--
+-- Host: localhost    Database: yiiboard
+-- ------------------------------------------------------
+-- Server version	5.7.28-0ubuntu0.18.04.4
+>>>>>>> 21f50476c0f24747292083aeb1d1582306884a08
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -54,7 +62,11 @@ CREATE TABLE `posts` (
   `post_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `subject_id` int(11) NOT NULL,
+<<<<<<< HEAD
   `subject` char(120) NOT NULL,
+=======
+  `subject` char(120) DEFAULT NULL,
+>>>>>>> 21f50476c0f24747292083aeb1d1582306884a08
   `body` text,
   `reply_to_post_id` int(11) DEFAULT NULL,
   `is_pinned` tinyint(1) NOT NULL DEFAULT '0',
@@ -143,4 +155,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD
 -- Dump completed on 2020-03-06  2:47:29
+=======
+-- Dump completed on 2020-03-06 15:23:11
+>>>>>>> 21f50476c0f24747292083aeb1d1582306884a08

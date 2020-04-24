@@ -19,7 +19,11 @@ CREATE TABLE `posts` (
   `post_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `subject_id` int(11) NOT NULL,
+<<<<<<< HEAD
   `subject` char(120) NOT NULL,
+=======
+  `subject` char(120),
+>>>>>>> 21f50476c0f24747292083aeb1d1582306884a08
   `body` text,
   `reply_to_post_id` int(11),
   `is_pinned` tinyint(1) NOT NULL default 0,
@@ -30,7 +34,10 @@ CREATE TABLE `posts` (
   FOREIGN KEY (`reply_to_post_id`) REFERENCES `posts`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 21f50476c0f24747292083aeb1d1582306884a08
 CREATE TABLE my_table
 (
 id serial,
